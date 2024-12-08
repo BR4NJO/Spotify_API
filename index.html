@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify API Integration</title>
+    <link rel="stylesheet" href="src/style.css">
+  </head>
+  <body>
+    <h1>Présentation du Profil Spotify</h1>
+
+    <!-- Section Profil Utilisateur -->
+    <section id="profile">
+      <h2>Connecté en tant que <span id="displayName"></span></h2>
+      <div id="avatar"></div>
+      <ul>
+        <li>ID Utilisateur : <span id="id"></span></li>
+        <li>Email : <span id="email"></span></li>
+        <li>URI Spotify : <a id="uri" href="#" target="_blank"></a></li>
+        <li>Lien Profil : <a id="url" href="#" target="_blank"></a></li>
+        <li>Image de Profil : <span id="imgUrl"></span></li>
+      </ul>
+    </section>
+
+    <!-- Section Artistes Suivis -->
+    <section id="artists">
+      <h2>Artistes Suivis</h2>
+      <div id="artistsContainer"></div>
+    </section>
+
+    <section id="search">
+      <h2>Recherche de Musique</h2>
+      <div>
+        <input id="searchInput" type="text" placeholder="Rechercher une piste..." />
+        <button id="searchButton">Rechercher</button>
+      </div>
+      <div id="searchResults">
+        <div class="search-item">
+          <img src="album-image.jpg" alt="Album Art">
+          <h3>Nom de la piste</h3>
+          <p>Artiste</p>
+          <div class="search-buttons">
+            <button class="play">Lecture</button>
+            <button class="follow">Suivre</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <script src="src/script.js" type="module"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  </body>
+</html>
