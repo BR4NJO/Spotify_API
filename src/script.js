@@ -184,7 +184,7 @@ async function searchTracks(token, query) {
 
         const data = await response.json();
         if (!data.tracks || !data.tracks.items) {
-            throw new Error("Les données de recherche sont incomplètes ou absentes");
+            throw new Error("Les données de recherche sont incomplètes ou absentes.");
         }
 
         return data.tracks.items; 
