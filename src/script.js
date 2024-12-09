@@ -158,17 +158,42 @@ function displayFollowedArtists(artists) {
 }
 
 async function searchTracks(token, query) {
-    const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track`, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (!response.ok) {
-        throw new Error("Erreur lors de la recherche.");
+    if (!token) {
+        throw new Error("Le token d'accès est manquant ou invalide !");
+    }
+    if (!query || query.trim() === "") {
+        throw new Error("La requête de recherche est vide !");
     }
 
-    const data = await response.json();
-    return data.tracks.items;
+    try {
+        const response = await fetch(
+            `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track`, 
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json", 
+                },
+            }
+        );
+
+        if (!response.ok) {
+            const errorDetails = await response.text();
+            console.error(`Erreur HTTP ${response.status}: ${errorDetails}`);
+            throw new Error(`Erreur lors de la recherche (${response.status}): ${errorDetails}`);
+        }
+
+        const data = await response.json();
+        if (!data.tracks || !data.tracks.items) {
+            throw new Error("Les données de recherche sont incomplètes ou absentes");
+        }
+
+        return data.tracks.items; 
+    } catch (error) {
+        console.error("Une erreur s'est produite lors de la recherche des pistes", error.message);
+        throw new Error("Une erreur s'est produite lors de la recherche des pistes");
+    }
 }
+
 
 function displaySearchResults(tracks, token) {
     const container = document.getElementById("searchResults");
