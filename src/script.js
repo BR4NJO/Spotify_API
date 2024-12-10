@@ -213,35 +213,29 @@ function displaySearchResults(tracks, token) {
 
         const playButton = document.createElement("button");
         playButton.textContent = "Lire";
-        playButton.addEventListener("click", () => playTrack(token, track.uri));
+        playButton.addEventListener("click", () => {
+            playTrackInIframe(track.uri);
+        });
         trackDiv.appendChild(playButton);
 
         container.appendChild(trackDiv);
     });
 }
 
-async function playTrack(token, trackUri) {
-    const response = await fetch("https://api.spotify.com/v1/me/player/play", {
-        method: "PUT",
-        headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ uris: [trackUri] }),
-    });
-
-    if (!response.ok) {
-        throw new Error("Impossible de lire la piste.");
-    }
-
-    alert("Lecture démarrée !");
+function playTrackInIframe(trackUri) {
+    const iframe = document.getElementById("musicPlayer");
+    iframe.src = `https://open.spotify.com/embed/track/${trackUri.split(":").pop()}?utm_source=generator`;
 }
+
 
 document.getElementById("searchButton").addEventListener("click", async () => {
     const query = document.getElementById("searchInput").value;
     const tracks = await searchTracks(localToken, query);
     displaySearchResults(tracks, localToken);
 });
+
+
+
 
 
 

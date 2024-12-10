@@ -243,6 +243,17 @@ a:hover {
   color: var(--background);
 }
 
+#embed-iframe {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+iframe {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 @media (max-width: 768px) {
   #artistsContainer, #albumsContainer {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));

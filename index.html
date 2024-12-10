@@ -27,26 +27,21 @@
     </section>
 
     <section id="search">
-      <h2>Recherche de Musique</h2>
+      <h2>Recherche une musique</h2>
+      <iframe id="musicPlayer" style="border-radius:12px" src="https://open.spotify.com/embed/track/6y87Q8nkhHP2YqowavLdPA?utm_source=generator" width="100%" height="250" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       <div>
-        <input id="searchInput" type="text" placeholder="Rechercher une piste..." />
+        <input id="searchInput" type="text" placeholder="Rechercher un titre..." />
         <button id="searchButton">Rechercher</button>
       </div>
       <div id="searchResults">
         <div class="search-item">
-          <img src="album-image.jpg" alt="Album Art">
-          <h3>Nom de la piste</h3>
-          <p>Artiste</p>
-          <div class="search-buttons">
-            <button class="play">Lecture</button>
-            <button class="follow">Suivre</button>
-          </div>
         </div>
       </div>
     </section>
-    
+
+    <div id="embed-iframe"></div>
 
     <script src="src/script.js" type="module"></script>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </body>
 </html>
