@@ -2,10 +2,10 @@ const clientId = "c681eed5c74c4898a88641753ebdd9a2";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
-const localToken = localStorage.getItem("token");
-const localTokenExpire = parseInt(localStorage.getItem("token_expired"), 10);
+const localToken = localStorage.getItem("token") !== null ? localStorage.getItem("token") : "undefined" ;
+const localTokenExpire = localStorage.getItem("token_expired");
 
-if (localToken && localTokenExpire && Date.now() < localTokenExpire) {
+if (localToken != "undefined" && Date.now() - localTokenExpire < (60*60*1000)) {
     const profile = await fetchProfile(localToken);
     populateUI(profile);
     const artists = await fetchFollowedArtists(localToken);
@@ -71,15 +71,10 @@ async function getAccessToken(clientId, code) {
         body: params,
     });
 
-    const { access_token, expires_in } = await result.json();
+    const { access_token } = await result.json();
 
-    if (!access_token || !expires_in) {
-        throw new Error("La réponse ne contient pas un token valide !");
-    }
-
-    const expirationTime = Date.now() + expires_in * 1000;
     localStorage.setItem("token", access_token);
-    localStorage.setItem("token_expired", expirationTime);
+    localStorage.setItem("token_expired", Date.now());
 
     return access_token;
 }
